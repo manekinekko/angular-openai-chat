@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "swa": "swa",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development"
@@ -17,6 +18,7 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
+    "@azure/static-web-apps-cli": "^1.0.6",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
