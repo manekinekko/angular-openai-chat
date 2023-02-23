@@ -119,7 +119,7 @@ export class AppComponent {
     const { clientPrincipal } = await response.json();
     return {
       name: clientPrincipal?.userDetails,
-      avatar: clientPrincipal?.claims.at(0).avatar,
+      avatar: clientPrincipal?.claims?.at(0).avatar || "/assets/user.png",
     }
   }
 }
