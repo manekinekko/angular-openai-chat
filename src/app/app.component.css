@@ -1,0 +1,75 @@
+main {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+mat-card-header,
+mat-card-title {
+  margin: 0;
+  padding: 0;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+mat-toolbar {
+  display: flex;
+  flex: 1;
+}
+
+form {
+  display: flex;
+  flex: 1;
+}
+
+mat-form-field {
+  flex: 1;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+mat-card-actions > button {
+  height: 50px;
+  margin: 4px;
+}
+
+.conversation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px 5px;
+}
+
+.conversation__text {
+  display: flex;
+  flex-direction: column;
+  background: #00ffdc;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.conversation__from_bot {
+  flex-direction: row-reverse;
+}
+
+.conversation__from_bot .conversation__text {
+  background: #ff007b;
+  color: white;
+}
+
+.avatar {
+  width: 34px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}

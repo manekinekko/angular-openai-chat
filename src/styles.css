@@ -12,3 +12,8 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+openai-root {
+  display: block;
+  width: 500px;
+}
