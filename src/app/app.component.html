@@ -8,26 +8,25 @@
       </mat-toolbar>
     </mat-card-header>
     <mat-card-content>
-      <section *ngFor="let message of conversation" class="conversation" [ngClass]="{ 'conversation__from_bot': message.from === 'bot'}">
-        <img class="avatar" [src]="message.from === 'bot' ? 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg' : 'https://pbs.twimg.com/profile_images/1569237625428496384/T30e5b80_400x400.jpg'" alt="bot avatar">
+      <section #conversationRef *ngFor="let message of conversation" class="conversation" [ngClass]="{ 'conversation__from_bot': message.from === 'bot'}">
+        <img class="avatar" [src]="message.from === 'bot' ? '/assets/ChatGPT_logo.svg' : 'https://pbs.twimg.com/profile_images/1569237625428496384/T30e5b80_400x400.jpg'" alt="bot avatar">
         
         <p class="conversation__text">{{ message.text }}</p>
       </section>
-      <mat-divider></mat-divider>
     </mat-card-content>
     <mat-card-actions>
+      <mat-divider></mat-divider>
       <form>
         <mat-form-field>
           <mat-label>Message</mat-label>
           <input matInput #message maxlength="256" placeholder="What's up...">
-          <mat-hint align="start"><strong>You are chatting with an Artificial Intelligence</strong> </mat-hint>
           <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
         </mat-form-field>
       </form>
-      <button mat-button color="primary" (click)="send(message.value)">Send</button>
+      <button mat-button color="primary" (click)="send(message)">Send</button>
     </mat-card-actions>
     <mat-card-footer>
-      <mat-progress-bar mode="buffer"></mat-progress-bar>
+      <mat-progress-bar [mode]="loadingStatus"></mat-progress-bar>
     </mat-card-footer>
   </mat-card>
 </main>
