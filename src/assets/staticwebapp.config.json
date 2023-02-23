@@ -1,0 +1,16 @@
+{
+    "routes": [
+        {
+            "route": "/api/*",
+            "allowedRoles": [
+                "authenticated"
+            ]
+        }
+    ],
+    "platform": {
+        "apiRuntime": "node:16"
+    },
+    "navigationFallback": {
+        "rewrite": "index.html"
+    }
+}
