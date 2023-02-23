@@ -17,6 +17,14 @@ module.exports = async function (context, req) {
 
   let { prompt, user } = req.body;
   
+  if (prompt === "/clear") {
+    conversation_history = [];
+    context.res = {
+      body: "Conversation history cleared.",
+    };
+    return;
+  }
+
   if (!prompt) {
     prompt = conversation_history.join("");
   }
