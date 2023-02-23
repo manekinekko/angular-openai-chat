@@ -1,28 +1,46 @@
 <header></header>
 <main>
-  <mat-card>
+  <button *ngIf="!isAuthenticated" mat-raised-button color="primary" (click)="login()">
+    Login to access the chat
+  </button>
+
+  <mat-card *ngIf="isAuthenticated">
     <mat-card-header>
       <mat-toolbar>
         <span>My Personal AI</span>
         <span></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
       </mat-toolbar>
     </mat-card-header>
     <mat-card-content>
-      <section #conversationRef *ngFor="let message of conversation" class="conversation" [ngClass]="{ 'conversation__from_bot': message.from === 'bot'}">
-        <img class="avatar" [src]="message.from === 'bot' ? '/assets/ChatGPT_logo.svg' : 'https://pbs.twimg.com/profile_images/1569237625428496384/T30e5b80_400x400.jpg'" alt="bot avatar">
-        
+      <section
+        #conversationRef
+        *ngFor="let message of conversation"
+        class="conversation"
+        [ngClass]="{ conversation__from_bot: message.from === 'bot' }"
+      >
+        <img
+          class="avatar"
+          [src]="
+            message.from === 'bot'
+              ? '/assets/ChatGPT_logo.svg'
+              : profile.avatar
+          "
+          alt="bot avatar"
+        />
+
         <p class="conversation__text">{{ message.text }}</p>
       </section>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="isAuthenticated">
       <mat-divider></mat-divider>
-      <form>
-        <mat-form-field>
-          <mat-label>Message</mat-label>
-          <input matInput #message maxlength="256" placeholder="What's up...">
-          <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-        </mat-form-field>
-      </form>
+      <mat-form-field>
+        <mat-label>Message</mat-label>
+        <input matInput #message maxlength="256" placeholder="What's up..." (keyup.enter)="send(message)"/>
+        <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
+      </mat-form-field>
       <button mat-button color="primary" (click)="send(message)">Send</button>
     </mat-card-actions>
     <mat-card-footer>
@@ -30,4 +48,17 @@
     </mat-card-footer>
   </mat-card>
 </main>
-<footer></footer>
+<!-- <footer>
+  <span class="caption">
+    Built without AI by
+    <a target="_blank" href="https://wassim.dev">Wassim Chegham</a></span
+  >
+</footer> -->
+
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>

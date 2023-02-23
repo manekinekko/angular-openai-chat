@@ -9,6 +9,7 @@ import {
 import { MatDivider, MatDividerModule } from "@angular/material/divider";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
+import {MatMenuModule} from '@angular/material/menu';
 import { CommonModule } from "@angular/common";
 
 type Message = {
@@ -31,9 +32,15 @@ type Message = {
     MatDividerModule,
     MatToolbarModule,
     MatIconModule,
+    MatMenuModule,
   ],
 })
 export class AppComponent {
+  isAuthenticated = false;
+  profile = {
+    name: "",
+    avatar: "",
+  };
   conversation: Message[] = [];
   loadingStatus: ProgressBarMode = "determinate";
 
@@ -66,6 +73,7 @@ export class AppComponent {
       },
       body: JSON.stringify({
         prompt: prompt.value,
+        user: this.profile.name,
       }),
     });
     const { text } = await response.json();
@@ -82,5 +90,36 @@ export class AppComponent {
 
   updateConversation(message: Message) {
     this.conversation.push(message);
+  }
+
+  async ngOnInit() {
+    this.isAuthenticated = !!(await this.isLoggedIn());
+    if (this.isAuthenticated) {
+      this.profile = await this.getProfile();
+    }
+  }
+    
+
+  login() {
+    window.location.href = "/.auth/login/aad?post_login_redirect_uri=/";
+  }
+
+  logout() {
+    window.location.href = "/.auth/logout?post_logout_redirect_uri=/";
+  }
+
+  async isLoggedIn() {
+    const response = await fetch("/.auth/me")
+    const { clientPrincipal } = await response.json();
+    return clientPrincipal !== null;
+  }
+
+  async getProfile() {
+    const response = await fetch("/.auth/me");
+    const { clientPrincipal } = await response.json();
+    return {
+      name: clientPrincipal?.userDetails,
+      avatar: clientPrincipal?.claims.at(0).avatar,
+    }
   }
 }
