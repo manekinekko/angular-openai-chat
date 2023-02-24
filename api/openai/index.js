@@ -20,7 +20,9 @@ module.exports = async function (context, req) {
   if (prompt === "/clear") {
     conversation_history = [];
     context.res = {
-      body: "Conversation history cleared.",
+      body: {
+        text: "Conversation history cleared.",
+      },
     };
     return;
   }
